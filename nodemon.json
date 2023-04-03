@@ -1,0 +1,6 @@
+{
+   "ignore": [
+      "./src/internal/users.json",
+      "./src/internal/api.json"
+   ]
+}
