@@ -48,7 +48,7 @@ const request = async (text, userId) => {
       if (api === 'User allowed') return 'Вы уже отправили сообщение, ожидайте ответа.';
 
       const openai = new OpenAIApi(new Configuration({
-         organization: 'org-H043MEreMj8Z5YgAKD74S0H9',
+         // organization: 'org-H043MEreMj8Z5YgAKD74S0H9',
          apiKey: api,
       }));
 
@@ -66,7 +66,12 @@ const request = async (text, userId) => {
 
       await giveApi(api, userId);
 
-      await users.map(obj => obj.id === user.id ? obj = user : null);
+      users = await getUsers();
+      for (let i = 0; i < users.length; i++) {
+         if (users[i].id === user.id) {
+            users[i] = user;
+         }
+      }
       await fs.promises.writeFile('./src/internal/users.json', JSON.stringify(users));
 
       return res.data.choices[0].message.content;

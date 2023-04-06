@@ -9,7 +9,10 @@ const createDialogScene = new Scenes.WizardScene('dialogScene', async (ctx) => {
       ctx.wizard.state.userName = ctx.message.from.username;
       ctx.wizard.state.firstName = ctx.message.from.first_name;
       ctx.wizard.state.lastName = ctx.message.from.last_name;
-      await ctx.replyWithHTML('Ты вошел в диалог!\n<i>Напиши что-нибудь</i>', Markup.keyboard([
+      await ctx.replyWithHTML(`
+      Ты вошел в диалог!
+      <i>Напиши что-нибудь</i>
+      `, Markup.keyboard([
          ['Выйти в меню'],
          ['Очистить диалог']
       ]).resize());

@@ -5,7 +5,6 @@ const fs = require('fs');
 
 (async function () {
    try {
-
       await setupBot().launch();
 
    } catch (error) {
