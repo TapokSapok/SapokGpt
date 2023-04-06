@@ -1,5 +1,5 @@
 const { Markup, Composer, Scenes } = require('telegraf');
-const { backToMenu, clearDialog, middleware } = require('../controllers/commands');
+const { backToMenu, clearDialog, middleware, guide } = require('../controllers/commands');
 const { request } = require('../services/AIApi.service.js');
 const data = async () => { return new Date().toLocaleTimeString() }
 
@@ -14,7 +14,7 @@ const createDialogScene = new Scenes.WizardScene('dialogScene', async (ctx) => {
       <i>Напиши что-нибудь</i>
       `, Markup.keyboard([
          ['Выйти в меню'],
-         ['Очистить диалог']
+         ['Очистить диалог', 'Как составить запрос']
       ]).resize());
       ctx.wizard.next();
    } catch (e) {
@@ -45,6 +45,7 @@ const createDialogScene = new Scenes.WizardScene('dialogScene', async (ctx) => {
       })()
    });
 
+createDialogScene.hears('Как составить запрос', ctx => guide(ctx))
 createDialogScene.hears('Очистить диалог', ctx => { clearDialog(ctx.message.from.id); ctx.reply('История сообщений очищена!\nОбщайся с чистого листа :3') });
 createDialogScene.hears('Выйти в меню', ctx => backToMenu(ctx, 'dialogScene'));
 
